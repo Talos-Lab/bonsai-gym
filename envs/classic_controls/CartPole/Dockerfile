@@ -19,10 +19,10 @@ RUN pip3 install -U setuptools \
 WORKDIR /sim
 
 # Copy simulator files to /sim
-COPY envs/classic_controls/Pendulum/pendulum.py \
-     envs/classic_controls/Pendulum/simulator_interface.json \
+COPY envs/classic_controls/CartPole/cartpole.py \
+     envs/classic_controls/CartPole/simulator_interface.json \
      /sim/ 
 
 
 # This will be the command to run the simulator
-CMD ["python", "pendulum.py", "--headless", "--verbose"]
+CMD ["python", "cartpole.py","--headless", "--verbose"]
