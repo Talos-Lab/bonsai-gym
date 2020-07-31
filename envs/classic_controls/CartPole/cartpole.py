@@ -1,15 +1,15 @@
-import sys
 import logging
 from typing import Any, Dict
 
 from gym_connectors import BonsaiConnector, GymSimulator
 
+log = logging.getLogger("cartpole")
 
 class CartPole(GymSimulator):
     """ Implements the methods specific to Open AI Gym CartPole environment 
     """    
 
-    environment_name = 'CartPole-v0'      # Environment name, from openai-gym
+    environment_name = 'CartPole-v1'      # Environment name, from openai-gym
 
 
     def __init__(self, iteration_limit=200, skip_frame=1):
@@ -32,11 +32,17 @@ class CartPole(GymSimulator):
 					   
         return self.bonsai_state
 
+    def state_to_gym(self, state):
+        return [state["cart_position"],state["cart_velocity"], state["pole_angle"], state["pole_angular_velocity"] ]
+
     def action_to_gym(self, action):
         """ Converts Bonsai action type into openai environment action.       
         """ 
         return action['command']
 
+    def gym_to_action(self, gym_action):
+        return {"command": gym_action}
+        
     def get_state(self) -> Dict[str, Any]:
         """ Returns the current state of the environment 
         """

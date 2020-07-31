@@ -1,82 +1,68 @@
-import gym
-from gym import logger
+import logging
 import requests
-
+from typing import Any, Dict
+from cartpole import CartPole
 
 class BonsaiAgent(object):
     """ The agent that gets the action from the trained brain exported as docker image and started locally
     """
-    def __init__(self, action_space):
-        self.action_space = action_space
+    def act(self, state)->Dict[str, Any]:
+        action = self.predict(state)
+        action["command"] = int(action["command"])
+        return action
 
-    def act(self, observation, reward, done):
-        action = self.predict(observation[0], observation[1], observation[2], observation[3])
-        return action["command"]
-
-    def predict(self,
-                cart_position: float,
-                cart_velocity: float,
-                pole_angle: float,
-                pole_angular_velocity : float) -> dict:
+    def predict(self, state):
         url = "http://localhost:5000/v1/prediction"
-        state = {
-            "cart_position": cart_position,
-            "cart_velocity": cart_velocity,
-            "pole_angle": pole_angle,
-            "pole_angular_velocity": pole_angular_velocity
-        }
 
         response = requests.get(url, json=state)
         action = response.json()
 
         return action
 
-
 class RandomAgent(object):
     """The world's simplest agent!"""
 
-    def __init__(self, action_space):
-        self.action_space = action_space
+    def __init__(self, cartpole:CartPole):
+        self.cartpole = cartpole
 
-    def act(self, observation, reward, done):
-        return self.action_space.sample()
+    def act(self, state):
+        return cartpole.gym_to_action(cartpole._env.action_space.sample())
 
 
 if __name__ == '__main__':
-    # You can set the level to logger.DEBUG or logger.WARN if you
-    # want to change the amount of output.
-    logger.set_level(logger.INFO)
+    logging.basicConfig()
+    log = logging.getLogger("cartpole")
+    log.setLevel(level='DEBUG')
 
-    env = gym.make('CartPole-v0')
+    # we will use our environment (wrapper of OpenAI env)
+    cartpole = CartPole()
 
-    env.seed(20)
 
     # specify which agent you want to use, 
     # BonsaiAgent that uses trained Brain or
     # RandomAgent that randomly selects next action
-    agent = BonsaiAgent(env.action_space)
-
-
-    env.render()
-    env.reset()
+    agent = RandomAgent(cartpole._env.action_space)
 
     episode_count = 100
     reward = 0
     done = False
 
-    for i in range(episode_count):
-        ob = env.reset()
-        episode_step = 0
-        #print(ob)
-        while True:
-            action = agent.act(ob, reward, done)
-            ob, reward, done, info = env.step(int(action))
+    try:
+        for i in range(episode_count):
 
-            episode_step += 1
-            
-            env.render()
-            if done:
-                print("done")
-                break
- 
-    env.close()
+            cartpole.episode_start()
+            state = cartpole.get_state()
+
+            while True:
+
+                action = agent.act(state)
+                print(action)
+                cartpole.episode_step(action)
+                state = cartpole.get_state()
+                
+                if cartpole.halted():
+                    break
+
+            cartpole.episode_finish("")
+    except KeyboardInterrupt:
+        print("Stopped")
