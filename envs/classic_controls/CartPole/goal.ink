@@ -9,8 +9,10 @@ using Goal
 # Length of the cartpole track in meters
 const TrackLength = 9.6
 
-# Maximum angle of pole in radians before it has fallen
-const MaxPoleAngle = (12 * Math.Pi) / 180
+
+
+# Less than the maximum angle of pole in radians before it has fallen
+const MaxPoleAngle = ((12 * Math.Pi) / 180) - 0.05
 
 
  #   Observation:
@@ -40,7 +42,7 @@ type SimState {
 # Type that represents the per-iteration action accepted by the simulator
 type SimAction {
     # Amount of force in x direction to apply to the cart.
-    command: number<Left = 0.1, Right = 1.0>
+    command: number<Left = 0.0, Right = 1.0>
 }
 
 # Define a concept graph with a single concept
@@ -52,32 +54,14 @@ graph (input: SimState): SimAction {
             source simulator (Action: SimAction): SimState {
             }
 
-            algorithm {
-                Algorithm: "APEX",
-                HiddenLayers: [
-                  {
-                    Size: 512,
-                    Activation: "relu"
-                  },
-                  {
-                    Size: 256,
-                    Activation: "relu"
-                  },
-                  {
-                    Size: 64,
-                    Activation: "relu"
-                  }
-                ]
-              }
-
             # The objective of training is expressed as a goal with two
             # subgoals: don't let the pole fall over, and don't move
             # the cart off the track.
             goal (State: SimState) {
                 avoid `Fall Over`:
-                    Math.Abs(State.pole_angle) in Goal.RangeAbove(0.2)
+                    Math.Abs(State.pole_angle) in Goal.RangeAbove(MaxPoleAngle)
                 avoid `Out Of Range`:
-                    Math.Abs(State.cart_position) in Goal.RangeAbove(2.4)
+                    Math.Abs(State.cart_position) in Goal.RangeAbove(1.4) # minimize the space the cartpole has available to move while balancing
             }
 
             training {

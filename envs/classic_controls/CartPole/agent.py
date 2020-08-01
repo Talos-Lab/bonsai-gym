@@ -45,7 +45,7 @@ if __name__ == '__main__':
     # RandomAgent that randomly selects next action
     agent = BonsaiAgent()
 
-    episode_count = 10
+    episode_count = 100
     reward = 0
     done = False
 
@@ -58,7 +58,7 @@ if __name__ == '__main__':
             while True:
 
                 action = agent.act(state)
-                # print(action)
+                print(action)
                 cartpole.episode_step(action)
                 state = cartpole.get_state()
 
