@@ -40,7 +40,7 @@ type SimState {
 # Type that represents the per-iteration action accepted by the simulator
 type SimAction {
     # Amount of force in x direction to apply to the cart.
-    command: number<Left = 0, Right = 1,>,
+    command: number<Left = 0.1, Right = 1.0>
 }
 
 # Define a concept graph with a single concept
@@ -52,12 +52,30 @@ graph (input: SimState): SimAction {
             source simulator (Action: SimAction): SimState {
             }
 
+            algorithm {
+                Algorithm: "APEX",
+                HiddenLayers: [
+                  {
+                    Size: 512,
+                    Activation: "relu"
+                  },
+                  {
+                    Size: 256,
+                    Activation: "relu"
+                  },
+                  {
+                    Size: 64,
+                    Activation: "relu"
+                  }
+                ]
+              }
+
             # The objective of training is expressed as a goal with two
             # subgoals: don't let the pole fall over, and don't move
             # the cart off the track.
             goal (State: SimState) {
                 avoid `Fall Over`:
-                    Math.Abs(State.pole_angle) in Goal.RangeAbove(MaxPoleAngle)
+                    Math.Abs(State.pole_angle) in Goal.RangeAbove(0.2)
                 avoid `Out Of Range`:
                     Math.Abs(State.cart_position) in Goal.RangeAbove(2.4)
             }

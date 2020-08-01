@@ -3,10 +3,12 @@ import requests
 from typing import Any, Dict
 from cartpole import CartPole
 
+
 class BonsaiAgent(object):
     """ The agent that gets the action from the trained brain exported as docker image and started locally
     """
-    def act(self, state)->Dict[str, Any]:
+
+    def act(self, state) -> Dict[str, Any]:
         action = self.predict(state)
         action["command"] = int(action["command"])
         return action
@@ -19,10 +21,11 @@ class BonsaiAgent(object):
 
         return action
 
+
 class RandomAgent(object):
     """The world's simplest agent!"""
 
-    def __init__(self, cartpole:CartPole):
+    def __init__(self, cartpole: CartPole):
         self.cartpole = cartpole
 
     def act(self, state):
@@ -37,13 +40,12 @@ if __name__ == '__main__':
     # we will use our environment (wrapper of OpenAI env)
     cartpole = CartPole()
 
-
-    # specify which agent you want to use, 
+    # specify which agent you want to use,
     # BonsaiAgent that uses trained Brain or
     # RandomAgent that randomly selects next action
-    agent = RandomAgent(cartpole._env.action_space)
+    agent = BonsaiAgent()
 
-    episode_count = 100
+    episode_count = 10
     reward = 0
     done = False
 
@@ -56,10 +58,10 @@ if __name__ == '__main__':
             while True:
 
                 action = agent.act(state)
-                print(action)
+                # print(action)
                 cartpole.episode_step(action)
                 state = cartpole.get_state()
-                
+
                 if cartpole.halted():
                     break
 
