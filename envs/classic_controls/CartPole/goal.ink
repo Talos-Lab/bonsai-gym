@@ -61,7 +61,7 @@ graph (input: SimState): SimAction {
                 avoid `Fall Over`:
                     Math.Abs(State.pole_angle) in Goal.RangeAbove(MaxPoleAngle)
                 avoid `Out Of Range`:
-                    Math.Abs(State.cart_position) in Goal.RangeAbove(1.4) # minimize the space the cartpole has available to move while balancing
+                    Math.Abs(State.cart_position) in Goal.RangeAbove(1.4) # 1.4 reduces the space the cartpole is allowed to move while balancing
             }
 
             training {
