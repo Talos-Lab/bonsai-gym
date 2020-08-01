@@ -9,12 +9,6 @@ using Goal
 # Length of the cartpole track in meters
 const TrackLength = 9.6
 
-
-
-# Less than the maximum angle of pole in radians before it has fallen
-const MaxPoleAngle = ((12 * Math.Pi) / 180) - 0.05
-
-
  #   Observation:
  #       Type: Box(4)
  #       Num     Observation               Min                     Max
@@ -59,7 +53,7 @@ graph (input: SimState): SimAction {
             # the cart off the track.
             goal (State: SimState) {
                 avoid `Fall Over`:
-                    Math.Abs(State.pole_angle) in Goal.RangeAbove(MaxPoleAngle)
+                    Math.Abs(State.pole_angle) in Goal.RangeAbove(0.15) # 0.15 is 0.05 less than the maximum angle of pole in radians before it has fallen
                 avoid `Out Of Range`:
                     Math.Abs(State.cart_position) in Goal.RangeAbove(1.4) # 1.4 reduces the space the cartpole is allowed to move while balancing
             }
