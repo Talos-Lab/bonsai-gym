@@ -11,7 +11,6 @@ class CartPole(GymSimulator):
 
     environment_name = 'CartPole-v1'      # Environment name, from openai-gym
 
-
     def __init__(self, iteration_limit=200, skip_frame=1):
         """ Initializes the CartPole environment
         """

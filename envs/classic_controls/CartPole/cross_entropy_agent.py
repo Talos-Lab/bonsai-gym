@@ -1,6 +1,4 @@
 import logging
-import requests
-import gym
 from collections import namedtuple
 import numpy as np
 from tensorboardX import SummaryWriter
@@ -14,7 +12,6 @@ HIDDEN_SIZE = 128
 BATCH_SIZE = 16
 PERCENTILE = 70
 
-from typing import Any, Dict
 from cartpole import CartPole
 
 class Net(nn.Module):
@@ -30,7 +27,9 @@ class Net(nn.Module):
         return self.net(x)
 
 class CartPoleTraining:
-
+    """ Training cartpole using cross entropy agoritham based on the code from the book
+    'Deep Reinforcement Learning Hands-On'
+    """
     Episode = namedtuple('Episode', field_names=['reward', 'steps'])
     EpisodeStep = namedtuple('EpisodeStep', field_names=['observation', 'action'])
 
@@ -129,17 +128,6 @@ class CartPoleTraining:
                 break
         writer.close()
 
-
-class RandomAgent(object):
-    """The world's simplest agent!"""
-
-    def __init__(self, cartpole:CartPole):
-        self.cartpole = cartpole
-
-    def act(self, state):
-        return cartpole.gym_to_action(cartpole._env.action_space.sample())
-
-
 if __name__ == '__main__':
     logging.basicConfig()
     log = logging.getLogger("cartpole")
@@ -152,32 +140,3 @@ if __name__ == '__main__':
 
     # we will use our environment (wrapper of OpenAI env)
     cartpole = CartPole()
-
-
-    # specify which agent you want to use, 
-    # BonsaiAgent that uses trained Brain or
-    # RandomAgent that randomly selects next action
-    agent = RandomAgent(cartpole._env.action_space)
-
-    episode_count = 100
-    reward = 0
-    done = False
-
-    try:
-        for i in range(episode_count):
-            cartpole.episode_start()
-            state = cartpole.get_state()
-
-            while True:
-
-                action = agent.act(state)
-                print(action)
-                cartpole.episode_step(action)
-                state = cartpole.get_state()
-                
-                if cartpole.halted():
-                    break
-
-            cartpole.episode_finish("")
-    except KeyboardInterrupt:
-        print("Stopped")
