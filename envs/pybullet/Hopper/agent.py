@@ -34,6 +34,9 @@ if __name__ == '__main__':
     # setting initial camera position
     hopper.initialize_camera(distance=2, yaw=10, pitch=-20)
 
+    # setting initial camera position
+    hopper.initialize_camera(distance=2, yaw=10, pitch=-20)
+
     # specify which agent you want to use,
     # BonsaiAgent that uses trained Brain or
     # RandomAgent that randomly selects next action
