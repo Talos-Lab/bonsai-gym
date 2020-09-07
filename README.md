@@ -1,5 +1,8 @@
 # Bonsai Connectors
 
+![Alt Text](assets/cart_pole.gif) ![Alt Text](assets/hoppers.gif) ![Alt Text](assets/reacher.gif)
+
+
 Bonsai Connectors is an open-source library, which gives us access to OpenAI Gym standardised set of environments while using Microsoft's reinforcement learning platform Bonsai.
 
 The repository also contains examples how to use this library to build and deploy OpenAI Gym environments to Bonsai and how to interact with the trained agent (Brain) from your code.  
