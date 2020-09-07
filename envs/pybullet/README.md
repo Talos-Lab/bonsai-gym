@@ -70,8 +70,8 @@ lesson walking{
 
 - Bonsai training output:
 
-![Alt Text](assets/reacher.jpg)
+![Alt Text](../../assets/reacher.jpg)
 
 - Exported agent (brain) performance:
 
-![Alt Text](assets/reacher.gif)
+![Alt Text](../../assets/reacher.gif)
