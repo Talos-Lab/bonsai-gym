@@ -1,8 +1,8 @@
-### Classic Controls
+## Classic Controls
 
 A collection of control theory problems from the classic RL literature.
 
-#### 1. Inverted Pendulum
+### 1. Inverted Pendulum
 
 The inverted pendulum swing-up problem is a classic problem in the control literature. In this version of the problem, the pendulum starts in a random position, and the goal is to swing it up so it stays upright.
 
@@ -28,13 +28,13 @@ goal (State: SimState) {
 
 - Bonsai training output:
 
-![Alt Text](assets/pendulum.jpg)
+![Alt Text](../../assets/pendulum.jpg)
 
 - Exported agent (brain) performance:
 
-![Alt Text](assets/pendulum.gif)
+![Alt Text](../../assets/pendulum.gif)
 
-#### 2. Mountain Car
+### 2. Mountain Car
 
 A car is on a one-dimensional track, positioned between two "mountains". The goal is to drive up the mountain on the right; however, the car's engine is not strong enough to scale the mountain in a single pass. Therefore, the only way to succeed is to drive back and forth to build up momentum.
 
@@ -53,13 +53,13 @@ goal (State: SimState) {
 
 - Bonsai training output:
 
-![Alt Text](assets/mountain_car.jpg)
+![Alt Text](../../assets/mountain_car.jpg)
 
 - Exported agent (brain) performance:
 
-![Alt Text](assets/mountain_car.gif)
+![Alt Text](../../assets/mountain_car.gif)
 
-#### 3. Cart Pole
+### 3. Cart Pole
 
 A pole is attached by an un-actuated joint to a cart, which moves along
 a frictionless track. The pendulum starts upright, and the goal is to
@@ -82,8 +82,8 @@ goal (State: SimState) {
 
 - Bonsai training output:
 
-![Alt Text](assets/cart_pole.jpg)
+![Alt Text](../../assets/cart_pole.jpg)
 
 - Exported agent (brain) performance:
 
-![Alt Text](assets/cart_pole.gif)
+![Alt Text](../../assets/cart_pole.gif)

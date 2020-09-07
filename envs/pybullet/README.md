@@ -1,10 +1,10 @@
-### PyBullet
+## PyBullet
 
 Bullet is a physics engine which simulates collision detection, soft and rigid body dynamics.
 
 PyBullet Gymperium is an open-source implementation of the OpenAI Gym MuJoCo environments for use with the OpenAI Gym Reinforcement Learning Research Platform in support of open research.
 
-#### 1. Hopper
+### 1. Hopper
 
 Make a two-dimensional one-legged robot hop forward as fast as possible.
 The robot model is based on work by Erez, Tassa, and Todorov.
@@ -38,13 +38,13 @@ function GetReward(State: SimState, Action: SimAction) {
 
 - Bonsai training output:
 
-![Alt Text](assets/hopper.jpg)
+![Alt Text](../../assets/hopper.jpg)
 
 - Exported agent (brain) performance:
 
-![Alt Text](assets/hoppers.gif)
+![Alt Text](../../assets/hoppers.gif)
 
-#### 2. Reacher
+### 2. Reacher
 
 Make a 2D robot reach to a randomly located target.
 
