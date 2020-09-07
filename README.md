@@ -49,7 +49,7 @@ The flag -e in pip is required to install the assets.
 
 ```
 git clone https://github.com/myned-ai/pybullet-gym.git
-cd pybulley-gym
+cd pybulley-gym]
 pip install -e .
 ```
 
@@ -104,7 +104,7 @@ Inside on each environment folder we have created an agent that can run locally 
 
 A collection of control theory problems from the classic RL literature.
 
-[lREADME link](https://github.com/myned-ai/bonsai-connectors/blob/tide-up/envs/classic_controls/README.md)
+[README link](https://github.com/myned-ai/bonsai-connectors/blob/tide-up/envs/classic_controls/README.md)
 
 ### PyBullet
 
