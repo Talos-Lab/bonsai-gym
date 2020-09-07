@@ -48,7 +48,7 @@ We have added a default arena and fixed an issue with the camera, so we advise t
 The flag -e in pip is required to install the assets.
 
 ```
-git clone https://github.com/Talos-Lab/pybullet-gym.git
+git clone https://github.com/myned-ai/pybullet-gym.git
 cd pybulley-gym
 pip install -e .
 ```
